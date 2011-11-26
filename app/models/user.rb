@@ -1,17 +1,27 @@
 class User
   include Mongoid::Document
-  # include OmniAuth::Identity::Models::Mongoid
 
-  field :provider, :type => String
-  field :uid, :type => String
-  field :name, :type => String
-  attr_accessible :provider, :uid, :name
+  #fields
+    field :provider, :type => String
+    field :uid, :type => String
+    field :name, :type => String
+    field :username, :type => String
+    attr_accessible :provider, :uid, :name, :username
+  
+  #associations
+    has_and_belongs_to_many :teams, inverse_of: :users
+    
+  #omniauth
+    def setup_omniauth(auth)
+      update_attributes(
+        uid: auth.uid,
+        name: auth.info.name,
+        provider: auth.provider
+      )
+  	end
 
-  def self.create_with_omniauth(auth)
-	  create! do |user|
-	    user.provider = auth.provider
-	    user.uid = auth.uid
-	    user.name = auth.info.name
-	  end
-	end
+    def registered?
+      uid.present? || provider.present?
+    end
+  
 end
