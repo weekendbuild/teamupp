@@ -44,5 +44,10 @@ module Teamupp
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.generators.helper = false
+    config.generators.test_framework = false
+    config.generators.stylesheets = false
+    config.generators.javascripts = false
   end
 end
