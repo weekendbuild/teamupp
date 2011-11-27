@@ -3,6 +3,7 @@ class TeamsController < ApplicationController
   
   def index
     @teams = current_user.teams
+    respond_with(@teams)
   end
 
   def show

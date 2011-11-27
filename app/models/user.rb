@@ -2,10 +2,10 @@ class User
   include Mongoid::Document
 
   #fields
-    field :provider, :type => String
-    field :uid, :type => String
-    field :name, :type => String
-    field :username, :type => String
+    field :provider,  type: String
+    field :uid,       type: String
+    field :name,      type: String
+    field :username,  type: String
     attr_accessible :provider, :uid, :name, :username
   
   #associations

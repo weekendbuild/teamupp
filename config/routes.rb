@@ -9,7 +9,9 @@ Teamupp::Application.routes.draw do
     root :to => 'teams#index'
     
     resources :teams do
-      resources :tasks
+      resources :milestones do
+        resources :tasks
+      end
     end
   end
 

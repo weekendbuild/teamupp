@@ -2,11 +2,11 @@ class Team
   include Mongoid::Document
   
   #fields
-    field :name, :type => String
+    field :name, type: String
 
   #associations
     has_and_belongs_to_many :users, inverse_of: :teams
-    has_many :tasks
+    has_many :milestones
 
   #attributes
     def usernames
@@ -19,12 +19,8 @@ class Team
     end
     
   #tasks
-    def open_tasks
-      tasks.incomplete
-    end
-    
     def closed_tasks
-      tasks.complete
+      []
     end
   
 end
