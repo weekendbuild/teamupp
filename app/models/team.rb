@@ -1,16 +1,30 @@
 class Team
   include Mongoid::Document
-  field :name, :type => String
+  
+  #fields
+    field :name, :type => String
 
-  has_and_belongs_to_many :users, inverse_of: :teams
+  #associations
+    has_and_belongs_to_many :users, inverse_of: :teams
+    has_many :tasks
 
-  def usernames
-    users.map(&:username).join(',')
-  end
+  #attributes
+    def usernames
+      users.map(&:username).join(',')
+    end
 
-  def usernames=(username_string)
-    names = username_string.split(',')
-    self.user_ids = names.map { |name| User.find_or_create_by(username: name).id }
-  end
-
+    def usernames=(username_string)
+      names = username_string.split(',')
+      self.user_ids = names.map { |name| User.find_or_create_by(username: name).id }
+    end
+    
+  #tasks
+    def open_tasks
+      tasks.incomplete
+    end
+    
+    def closed_tasks
+      tasks.complete
+    end
+  
 end

@@ -10,7 +10,7 @@ class User
   
   #associations
     has_and_belongs_to_many :teams, inverse_of: :users
-    
+  
   #omniauth
     def setup_omniauth(auth)
       update_attributes(
@@ -18,7 +18,7 @@ class User
         name: auth.info.name,
         provider: auth.provider
       )
-  	end
+    end
 
     def registered?
       uid.present? || provider.present?

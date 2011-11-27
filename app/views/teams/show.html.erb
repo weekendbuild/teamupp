@@ -1,9 +1,43 @@
 <h1><%= @team.name %></h1>
 
-<h2>Team Members</h2>
-<ul>
-  <% @team.users.each do |user| %>
-    <li><%= user.username %></li>
-  <% end %>
-</ul>
+<div class="row">
   
+  <div class="span10">
+    <h2>Open Tasks</h2>
+    <ul>
+      <% @team.open_tasks.each do |task| %>
+        <li>
+          <%= task.description %>
+          <%= link_to("Complete", [@team, task], method: :put) %>
+          <%= link_to("Delete", [@team, task], method: :delete, confirm: 'Are you sure?') %>
+        </li>
+      <% end %>
+    </ul>
+    <%= form_for([@team, @team.tasks.new]) do |f| %>
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+      <%= f.submit %>
+    <% end %>
+    
+    <h2>Closed Tasks</h2>
+    <ul>
+      <% @team.closed_tasks.each do |task| %>
+        <li>
+          <span class="completed"><%= task.description %></span>
+          <small>by <%= task.completer.username %> on <%= task.completed_at.to_s(:short) %></small>
+          <%= link_to("Delete", [@team, task], method: :delete, confirm: 'Are you sure? You will lose these points.') %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  
+  <div class="span6">
+    <h2>Team Members</h2>
+    <ul>
+      <% @team.users.each do |user| %>
+        <li><%= user.username %></li>
+      <% end %>
+    </ul>
+  </div>
+  
+</div>

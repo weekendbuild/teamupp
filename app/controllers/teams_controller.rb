@@ -1,11 +1,12 @@
 class TeamsController < ApplicationController
-
+  respond_to :html, :xml, :json
+  
   def index
     @teams = current_user.teams
   end
 
   def show
-    @team = Team.find(params[:id])
+    @team = current_user.teams.find(params[:id])
   end
 
   def new
